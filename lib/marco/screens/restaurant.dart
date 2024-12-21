@@ -78,6 +78,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
   // Tambahkan state variables untuk menyimpan data yang diambil dari API
   TempatKuliner? restaurant;
   List<Makanan> makananList = [];
+  String? tempatKulinerNama;
   bool isLoading = true;
   String? errorMessage;
   List<FoodPlan> foodPlans = [];
@@ -85,6 +86,14 @@ class _RestaurantPageState extends State<RestaurantPage> {
   // FoodPlanService instance
   late FoodPlanService foodPlanService;
   bool _isServiceInitialized = false;
+  late String tempatKulinerId;
+
+  @override
+  void initState() {
+      super.initState();
+      tempatKulinerId = widget.idTempatKuliner;
+  }
+
 
   // Fungsi untuk mengambil kedua data secara bersamaan
   Future<Map<String, dynamic>> fetchAllData(CookieRequest request) async {
@@ -152,13 +161,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
       fetchAllData(request); // Fetch data after initializing the service
     }
   }
-
-
-
-  final tempatKulinerId = "2dbf8eaa-7533-4047-b420-93b496cd4ca0";
-  final tempatKulinerNama = "NamakuBebas";
   int _reviewListKey = 0;
-
 
   void _goToAddReview() async {
     // Navigate to ReviewEntryFormPage and wait for the result
@@ -167,7 +170,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
       MaterialPageRoute(
         builder: (context) => ReviewEntryFormPage(
           tempatKulinerId: tempatKulinerId,
-          tempatKulinerNama: tempatKulinerNama,
+          tempatKulinerNama: tempatKulinerNama ?? 'No name',
         ),
       ),
     );
@@ -417,6 +420,14 @@ class _RestaurantPageState extends State<RestaurantPage> {
             // Ambil data dari snapshot
             restaurant = snapshot.data!['restaurant'] as TempatKuliner;
             makananList = snapshot.data!['makananList'] as List<Makanan>;
+
+            if (tempatKulinerNama == null) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                setState(() {
+                  tempatKulinerNama = restaurant?.fields.nama;
+                });
+              });
+            }
 
 
             return SingleChildScrollView(
