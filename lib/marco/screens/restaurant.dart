@@ -21,8 +21,8 @@ class FoodPlanService {
 
   // Fetch food plan
   Future<List<FoodPlan>> fetchFoodPlans() async {
-    final response = await request
-        .get('http://127.0.0.1:8000/restaurant/get_food_plans_json');
+    final response = await request.get(
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/restaurant/get_food_plans_json');
 
     if (response != null) {
       String jsonString = json.encode(response);
@@ -47,7 +47,7 @@ class FoodPlanService {
 
       // POST data
       final response = await request.post(
-        'http://127.0.0.1:8000/restaurant/save_food_plan_flutter',
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/restaurant/save_food_plan_flutter',
         postData,
       );
 
@@ -112,7 +112,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
 
   Future<List<Makanan>> fetchMakanan(CookieRequest request) async {
     final responseMakanan = await request.get(
-        'http://127.0.0.1:8000/restaurant/get_makanan_json/${widget.idTempatKuliner}/');
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/restaurant/get_makanan_json/${widget.idTempatKuliner}/');
 
     // Melakukan decode response menjadi bentuk json
     var dataMakanan = responseMakanan;
@@ -129,7 +129,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
 
   Future<TempatKuliner> fetchTempatKuliner(CookieRequest request) async {
     final responseRestaurant = await request.get(
-        'http://127.0.0.1:8000/restaurant/get_restoran_json/${widget.idTempatKuliner}/');
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/restaurant/get_restoran_json/${widget.idTempatKuliner}/');
 
     // Melakukan decode response menjadi bentuk json
     var dataRestaurant = responseRestaurant;

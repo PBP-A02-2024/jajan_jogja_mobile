@@ -33,7 +33,7 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
     final request = context.read<CookieRequest>();
     try {
       final response = await request.get(
-        'http://127.0.0.1:8000/adm/get-resto-detail/${widget.id}/',
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/adm/get-resto-detail/${widget.id}/',
       );
 
       if (response['status'] == 'success') {
@@ -73,8 +73,8 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
   Future<void> _fetchVariasi() async {
     final request = context.read<CookieRequest>();
     try {
-      final response =
-          await request.get('http://127.0.0.1:8000/adm/json-variasi/');
+      final response = await request.get(
+          'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/adm/json-variasi/');
       if (response != null) {
         setState(() {
           _variasiOptions =
