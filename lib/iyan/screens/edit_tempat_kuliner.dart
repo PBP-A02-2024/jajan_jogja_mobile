@@ -17,7 +17,8 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _alamatController = TextEditingController();
   final TextEditingController _fotoLinkController = TextEditingController();
-  final TextEditingController _longitudeTextController = TextEditingController();
+  final TextEditingController _longitudeTextController =
+      TextEditingController();
   final TextEditingController _latitudeTextController = TextEditingController();
 
   double _longitudeController = 0.0;
@@ -31,7 +32,7 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
     final request = context.read<CookieRequest>();
     try {
       final response = await request.get(
-        'http://127.0.0.1:8000/adm/get-resto-detail/${widget.id}/',
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/adm/get-resto-detail/${widget.id}/',
       );
 
       if (response['status'] == 'success') {
@@ -39,8 +40,10 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
           _namaController.text = response['data']['nama'];
           _descriptionController.text = response['data']['description'];
           _alamatController.text = response['data']['alamat'];
-          _longitudeTextController.text = response['data']['longitude'].toString();
-          _latitudeTextController.text = response['data']['latitude'].toString();
+          _longitudeTextController.text =
+              response['data']['longitude'].toString();
+          _latitudeTextController.text =
+              response['data']['latitude'].toString();
           _longitudeController = double.parse(response['data']['longitude']);
           _latitudeController = double.parse(response['data']['latitude']);
           _fotoLinkController.text = response['data']['foto_link'];
@@ -67,10 +70,12 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
   Future<void> _fetchVariasi() async {
     final request = context.read<CookieRequest>();
     try {
-      final response = await request.get('http://127.0.0.1:8000/adm/json-variasi/');
+      final response = await request.get(
+          'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/adm/json-variasi/');
       if (response != null) {
         setState(() {
-          _variasiOptions = List<Map<String, dynamic>>.from(response.map((item) {
+          _variasiOptions =
+              List<Map<String, dynamic>>.from(response.map((item) {
             return {'id': item['pk'], 'nama': item['fields']['nama']};
           }));
         });

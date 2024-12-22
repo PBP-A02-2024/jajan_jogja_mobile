@@ -31,7 +31,7 @@ class ProfilePageState extends State<ProfilePage> {
       final request = context.read<CookieRequest>();
       try {
         final response = await request.postJson(
-            'http://127.0.0.1:8000/auth/profile-flutter/',
+            'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/auth/profile-flutter/',
             jsonEncode({
               'username': _nameController.text,
               'email': _emailController.text,
@@ -73,8 +73,8 @@ class ProfilePageState extends State<ProfilePage> {
   Future<void> _fetchData() async {
     final request = context.read<CookieRequest>();
     try {
-      final response =
-          await request.get('http://127.0.0.1:8000/json-current-user/');
+      final response = await request.get(
+          'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/json-current-user/');
 
       if (mounted && response != null) {
         setState(() {
@@ -195,7 +195,7 @@ class ProfilePageState extends State<ProfilePage> {
                             onPressed: () async {
                               final request = context.read<CookieRequest>();
                               await request.logout(
-                                  'http://127.0.0.1:8000/auth_api/logout/');
+                                  'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/auth_api/logout/');
                               if (!context.mounted) return;
                               Navigator.pushReplacement(
                                 context,
