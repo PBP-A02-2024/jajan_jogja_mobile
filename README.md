@@ -78,3 +78,5 @@ User dapat menambahkan *review* berupa *rating* 1-5 bintang dan *text* untuk tia
 3. Selanjutnya, data yang telah diambil tadi dapat di-*decode* menggunakan `jsonDecode()` yang nantinya akan di-*convert* melalui model yang telah dibuat dan ditampilkan secara *async* menggunakan widget `FutureBuilder`.
 4. Data-data JSON tadi dapat digunakan secara CRUD pada kedua media secara *async* 
 
+<a href="https://install.appcenter.ms/orgs/PBP-A02-2024/apps/Jajan-Jogja">Link Microsoft App Center</a>&emsp;&emsp;[![Build status](https://build.appcenter.ms/v0.1/apps/53e72241-e10a-4845-98e7-419abef94e9f/branches/main/badge)](https://appcenter.ms)
+
