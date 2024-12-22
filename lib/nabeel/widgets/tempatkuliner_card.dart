@@ -16,7 +16,11 @@ class TempatKulinerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => RestaurantPage(idTempatKuliner: tempatKuliner.pk)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    RestaurantPage(idTempatKuliner: tempatKuliner.pk)));
       },
       child: Container(
         width: double.infinity,
@@ -24,7 +28,7 @@ class TempatKulinerCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: Color(0xFFD6536D), width: 2),
+          border: Border.all(color: const Color(0xFFC98809), width: 2),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withAlpha(500),
@@ -52,7 +56,8 @@ class TempatKulinerCard extends StatelessWidget {
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: double.infinity,
-                      placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                      placeholder: (context, url) =>
+                          Center(child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) => Container(
                         color: Colors.grey,
                         child: Center(
@@ -69,7 +74,8 @@ class TempatKulinerCard extends StatelessWidget {
                   bottom: 8,
                   right: 8,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.white.withAlpha(500),
                       borderRadius: BorderRadius.circular(8),
