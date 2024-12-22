@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:jajan_jogja_mobile/widgets/header_app.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:jajan_jogja_mobile/screens/login.dart';
 import 'package:provider/provider.dart';
 import '../../widgets/navbar.dart';
 
@@ -35,7 +36,6 @@ class ProfilePageState extends State<ProfilePage> {
               'username': _nameController.text,
               'email': _emailController.text,
             }));
-
         if (mounted) {
           if (response['status'] == 'success') {
             setState(() {
@@ -171,17 +171,15 @@ class ProfilePageState extends State<ProfilePage> {
                           ElevatedButton(
                             onPressed: cancelEdit,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFFE43D12),
-                            ),
-                            child: Text("Cancel",
+                                backgroundColor: Color(0xFFE43D12)),
+                            child: const Text("Cancel",
                                 style: TextStyle(color: Colors.white)),
                           ),
                           ElevatedButton(
                             onPressed: saveProfile,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFC98809),
-                            ),
-                            child: Text("Save",
+                                backgroundColor: Color(0xFFC98809)),
+                            child: const Text("Save",
                                 style: TextStyle(color: Colors.white)),
                           ),
                         ]
@@ -189,13 +187,29 @@ class ProfilePageState extends State<ProfilePage> {
                           ElevatedButton(
                             onPressed: () => setState(() => _isEditing = true),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFC98809),
-                            ),
-                            child: Text("Edit",
+                                backgroundColor: Color(0xFFC98809)),
+                            child: const Text("Edit",
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              final request = context.read<CookieRequest>();
+                              await request.logout(
+                                  'http://127.0.0.1:8000/auth_api/logout/');
+                              if (!context.mounted) return;
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginPage()),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red),
+                            child: const Text("Logout",
                                 style: TextStyle(color: Colors.white)),
                           ),
                         ],
-                ),
+                )
               ],
             ),
           ),

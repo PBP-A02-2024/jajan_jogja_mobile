@@ -21,8 +21,8 @@ class FoodPlanService {
 
   // Fetch food plan
   Future<List<FoodPlan>> fetchFoodPlans() async {
-    final response = await request.get(
-        'http://127.0.0.1:8000/restaurant/get_food_plans_json');
+    final response = await request
+        .get('http://127.0.0.1:8000/restaurant/get_food_plans_json');
 
     if (response != null) {
       String jsonString = json.encode(response);
@@ -64,7 +64,6 @@ class FoodPlanService {
   }
 }
 
-
 class RestaurantPage extends StatefulWidget {
   final String idTempatKuliner;
 
@@ -90,10 +89,9 @@ class _RestaurantPageState extends State<RestaurantPage> {
 
   @override
   void initState() {
-      super.initState();
-      tempatKulinerId = widget.idTempatKuliner;
+    super.initState();
+    tempatKulinerId = widget.idTempatKuliner;
   }
-
 
   // Fungsi untuk mengambil kedua data secara bersamaan
   Future<Map<String, dynamic>> fetchAllData(CookieRequest request) async {
@@ -106,7 +104,6 @@ class _RestaurantPageState extends State<RestaurantPage> {
       return {
         'makananList': responses[0],
         'restaurant': responses[1],
-
       };
     } catch (e) {
       throw Exception('Failed to load data: $e');
@@ -114,7 +111,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
   }
 
   Future<List<Makanan>> fetchMakanan(CookieRequest request) async {
-    final responseMakanan = await request.get('http://127.0.0.1:8000/restaurant/get_makanan_json/${widget.idTempatKuliner}/');
+    final responseMakanan = await request.get(
+        'http://127.0.0.1:8000/restaurant/get_makanan_json/${widget.idTempatKuliner}/');
 
     // Melakukan decode response menjadi bentuk json
     var dataMakanan = responseMakanan;
@@ -130,7 +128,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
   }
 
   Future<TempatKuliner> fetchTempatKuliner(CookieRequest request) async {
-    final responseRestaurant = await request.get('http://127.0.0.1:8000/restaurant/get_restoran_json/${widget.idTempatKuliner}/');
+    final responseRestaurant = await request.get(
+        'http://127.0.0.1:8000/restaurant/get_restoran_json/${widget.idTempatKuliner}/');
 
     // Melakukan decode response menjadi bentuk json
     var dataRestaurant = responseRestaurant;
@@ -161,6 +160,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
       fetchAllData(request); // Fetch data after initializing the service
     }
   }
+
   int _reviewListKey = 0;
 
   void _goToAddReview() async {
@@ -182,16 +182,13 @@ class _RestaurantPageState extends State<RestaurantPage> {
         _reviewListKey++;
       });
     }
-
   }
 
   void _showFoodPlanModal(Makanan makanan) async {
     try {
-      // Fetch the latest Food Plans
       List<FoodPlan> fetchedFoodPlans = await foodPlanService.fetchFoodPlans();
 
       if (fetchedFoodPlans.isEmpty) {
-        // Jika Food Plans kosong, tampilkan dialog khusus
         showDialog(
           context: context,
           builder: (context) {
@@ -225,10 +222,10 @@ class _RestaurantPageState extends State<RestaurantPage> {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pop();
-                          // Redirect ke halaman Food Plan
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => FoodPlanList()),
+                            MaterialPageRoute(
+                                builder: (context) => FoodPlanList()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
@@ -255,7 +252,6 @@ class _RestaurantPageState extends State<RestaurantPage> {
         return;
       }
 
-      // Jika Food Plans tidak kosong, tampilkan dialog utama
       List<Map<String, dynamic>> foodPlansData = fetchedFoodPlans.map((plan) {
         return {
           'id': plan.pk,
@@ -275,7 +271,9 @@ class _RestaurantPageState extends State<RestaurantPage> {
                 child: Container(
                   padding: const EdgeInsets.all(16.0),
                   width: 300,
-                  height: (fetchedFoodPlans.length * 60.0 + 100).clamp(200.0, 500.0),
+                  // Increased max height from 500.0 to 750.0 to scale better
+                  height: (fetchedFoodPlans.length * 60.0 + 100)
+                      .clamp(200.0, 750.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -304,14 +302,15 @@ class _RestaurantPageState extends State<RestaurantPage> {
                           itemCount: fetchedFoodPlans.length,
                           itemBuilder: (context, index) {
                             final plan = fetchedFoodPlans[index];
-                            final isChecked = foodPlansData[index]['checked'] as bool;
-
+                            final isChecked =
+                                foodPlansData[index]['checked'] as bool;
                             return CheckboxListTile(
                               title: Text(plan.fields.nama),
                               value: isChecked,
                               onChanged: (bool? value) {
                                 setState(() {
-                                  foodPlansData[index]['checked'] = value ?? false;
+                                  foodPlansData[index]['checked'] =
+                                      value ?? false;
                                 });
                               },
                               controlAffinity: ListTileControlAffinity.leading,
@@ -330,14 +329,17 @@ class _RestaurantPageState extends State<RestaurantPage> {
                                 makananId: makanan.pk,
                                 foodPlansData: foodPlansData,
                               );
-
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Food plan updated successfully!')),
+                                const SnackBar(
+                                    content: Text(
+                                        'Food plan updated successfully!')),
                               );
                               Navigator.of(context).pop();
                             } catch (e) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Failed to update food plan: $e')),
+                                SnackBar(
+                                    content:
+                                        Text('Failed to update food plan: $e')),
                               );
                             }
                           },
@@ -353,7 +355,6 @@ class _RestaurantPageState extends State<RestaurantPage> {
                               color: Color(0xFFEBE9E1),
                             ),
                           ),
-
                         ),
                       ),
                     ],
@@ -429,7 +430,6 @@ class _RestaurantPageState extends State<RestaurantPage> {
               });
             }
 
-
             return SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               child: Column(
@@ -438,7 +438,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   // Foto restoran
                   Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xFFD6536D), width: 4),
+                      border:
+                          Border.all(color: const Color(0xFFD6536D), width: 4),
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: ClipRRect(
@@ -449,7 +450,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
                         width: double.infinity,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
-                          return const Center(child: Text('Image not available'));
+                          return const Center(
+                              child: Text('Image not available'));
                         },
                       ),
                     ),
@@ -476,7 +478,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   const SizedBox(height: 8),
                   // Restaurant Description
                   Text(
-                    restaurant?.fields.description ?? 'Deskripsi tidak tersedia',
+                    restaurant?.fields.description ??
+                        'Deskripsi tidak tersedia',
                     style: const TextStyle(
                       fontSize: 16,
                       color: Color(0xFF0F0401),
@@ -496,7 +499,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xFFD6536D), width: 2),
+                      border:
+                          Border.all(color: const Color(0xFFD6536D), width: 2),
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: Row(
@@ -585,7 +589,6 @@ class _RestaurantPageState extends State<RestaurantPage> {
           }
         },
       ),
-
       bottomNavigationBar: navbar(context, ""),
     );
   }

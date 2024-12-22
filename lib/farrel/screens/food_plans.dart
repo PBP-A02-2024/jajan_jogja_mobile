@@ -457,41 +457,50 @@ class _FoodPlansState extends State<FoodPlans> {
                   ),
                   const SizedBox(height: 16),
                   // List of Restaurant Cards
-                  ...foodPlan.fields.restaurants.map((restaurant) {
-                    final foods = restaurantFoods[restaurant.pk] ?? [];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 16.0),
-                      child: RestaurantCard(
-                        restaurantPk: restaurant.pk,
-                        restaurantName: restaurant.fields.nama,
-                        address: restaurant.fields.alamat,
-                        distance: 0.0,
-                        foods: foods
-                            .map((food) => {
-                                  'pk': food.pk,
-                                  'name': food.fields.nama,
-                                  'description': food.fields.description,
-                                  'price': food.fields.harga.toString(),
-                                  'imageUrl': food.fields.fotoLink,
-                                })
-                            .toList(),
-                        isEditingItems: isEditingItems,
-                        onFoodTap: (food) {
-                          showFoodDetails(food);
-                        },
-                        onDeleteFood: (foodPk) {
-                          handleDeleteFoodItem(foodPk);
-                        },
-                        onRestaurantTap: () {
-                          showRestaurantDetails(restaurant);
-                        },
-                        onDeleteRestaurant: (restaurantPk) {
-                          handleDeleteRestaurant(restaurantPk);
-                        },
+                  if (foodPlan.fields.restaurants.isEmpty)
+                    const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Text(
+                        'No restaurants added yet, go ahead and add some!',
+                        style: TextStyle(fontSize: 18),
                       ),
-                    );
-                  }).toList(),
+                    )
+                  else
+                    ...foodPlan.fields.restaurants.map((restaurant) {
+                      final foods = restaurantFoods[restaurant.pk] ?? [];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: RestaurantCard(
+                          restaurantPk: restaurant.pk,
+                          restaurantName: restaurant.fields.nama,
+                          address: restaurant.fields.alamat,
+                          distance: 0.0,
+                          foods: foods
+                              .map((food) => {
+                                    'pk': food.pk,
+                                    'name': food.fields.nama,
+                                    'description': food.fields.description,
+                                    'price': food.fields.harga.toString(),
+                                    'imageUrl': food.fields.fotoLink,
+                                  })
+                              .toList(),
+                          isEditingItems: isEditingItems,
+                          onFoodTap: (food) {
+                            showFoodDetails(food);
+                          },
+                          onDeleteFood: (foodPk) {
+                            handleDeleteFoodItem(foodPk);
+                          },
+                          onRestaurantTap: () {
+                            showRestaurantDetails(restaurant);
+                          },
+                          onDeleteRestaurant: (restaurantPk) {
+                            handleDeleteRestaurant(restaurantPk);
+                          },
+                        ),
+                      );
+                    }).toList(),
                 ],
               ),
             );
