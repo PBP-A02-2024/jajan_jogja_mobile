@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:jajan_jogja_mobile/iyan/models/resto.dart';
 import 'package:jajan_jogja_mobile/iyan/screens/create_tempat_kuliner.dart';
 import 'package:jajan_jogja_mobile/iyan/widgets/resto_card.dart';
+import 'package:jajan_jogja_mobile/widgets/header_app.dart';
 import 'package:jajan_jogja_mobile/zoya/models/community_forum_entry.dart';
 import 'package:jajan_jogja_mobile/zoya/screens/edit_forum.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -162,19 +163,7 @@ class LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
-      appBar: AppBar(
-        title: Align(
-          alignment: Alignment.center,
-          child: const Text(
-            'Jajan Jogja',
-            style: TextStyle(
-              color: Color(0xFF7C1D05),
-              fontSize: 26,
-            ),
-          ),
-        ),
-        backgroundColor: const Color(0xFFEBE9E1),
-      ),
+      appBar: headerApp(context),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
