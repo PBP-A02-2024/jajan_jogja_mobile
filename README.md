@@ -17,7 +17,7 @@ Daftar modul yang diimplementasikan beserta pembagian kerja per anggota
 Peran atau aktor pengguna aplikasi
 Alur pengintegrasian dengan web service untuk terhubung dengan aplikasi web yang sudah dibuat saat Proyek Tengah Semester
 
-## 📹 Link Tugas Proyek Akhir 
+## 📹 Link Video Tugas Proyek Akhir 
 Link Youtube: https://youtu.be/zvYRXeCiawY
 
 ## 💻 Modul - Modul 💻
