@@ -13,7 +13,6 @@ void main() {
 class LoginApp extends StatelessWidget {
   const LoginApp({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -74,10 +73,12 @@ class _LoginPageState extends State<LoginPage> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 decoration: BoxDecoration(
                   color: const Color(0xFFEBE9E1), // White
-                  border: Border.all(color: theme.colorScheme.secondary, width: 2),
+                  border:
+                      Border.all(color: theme.colorScheme.secondary, width: 2),
                   borderRadius: BorderRadius.circular(24),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Form(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -180,10 +181,12 @@ class _LoginPageState extends State<LoginPage> {
                                 String password = _passwordController.text;
 
                                 // Cek kredensial
-                                final response = await request.login("http://127.0.0.1:8000/auth_api/login/", {
-                                  'username': username,
-                                  'password': password,
-                                });
+                                final response = await request.login(
+                                    "https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/auth_api/login/",
+                                    {
+                                      'username': username,
+                                      'password': password,
+                                    });
 
                                 if (request.loggedIn) {
                                   String message = response['message'];
@@ -198,8 +201,8 @@ class _LoginPageState extends State<LoginPage> {
                                       ..hideCurrentSnackBar()
                                       ..showSnackBar(
                                         SnackBar(
-                                            content:
-                                            Text("$message Selamat datang, $uname.")),
+                                            content: Text(
+                                                "$message Selamat datang, $uname.")),
                                       );
                                   }
                                 } else {
@@ -223,7 +226,8 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFFEFB11D), // Yellow
+                                backgroundColor:
+                                    const Color(0xFFEFB11D), // Yellow
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
@@ -243,7 +247,8 @@ class _LoginPageState extends State<LoginPage> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => RegisterPage()),
+                              MaterialPageRoute(
+                                  builder: (context) => RegisterPage()),
                             );
                           },
                           child: RichText(

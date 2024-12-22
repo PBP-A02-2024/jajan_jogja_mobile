@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:jajan_jogja_mobile/nabeel/screens/search_page.dart';
+import 'package:jajan_jogja_mobile/screens/profile.dart';
 import 'package:jajan_jogja_mobile/zoya/screens/landing_page.dart';
 import 'package:jajan_jogja_mobile/farrel/screens/food_plan_list.dart';
 
@@ -45,7 +46,7 @@ Container navbar(context, page) {
                 size: 24.0,
               ),
               onPressed: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => SearchPage()),
                 );
@@ -71,7 +72,7 @@ Container navbar(context, page) {
                 size: 24.0,
               ),
               onPressed: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => FoodPlanList()),
                 );
@@ -96,7 +97,12 @@ Container navbar(context, page) {
                     page != "profile" ? Color(0XFF7A7A7A) : Color(0xFFc98809),
                 size: 24.0,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                );
+              },
             ),
             Text(
               "Profile",

@@ -14,11 +14,12 @@ class RegisterPage extends StatefulWidget {
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage>  {
+class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,8 @@ class _RegisterPageState extends State<RegisterPage>  {
                   border: Border.all(color: const Color(0xFF7C1D05), width: 2),
                   borderRadius: BorderRadius.circular(24),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -210,11 +212,12 @@ class _RegisterPageState extends State<RegisterPage>  {
                               onPressed: () async {
                                 String username = _usernameController.text;
                                 String password1 = _passwordController.text;
-                                String password2 = _confirmPasswordController.text;
+                                String password2 =
+                                    _confirmPasswordController.text;
 
                                 // Cek kredensial
                                 final response = await request.postJson(
-                                    "http://127.0.0.1:8000/auth_api/register/",
+                                    "https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/auth_api/register/",
                                     jsonEncode({
                                       "username": username,
                                       "password1": password1,
@@ -224,13 +227,15 @@ class _RegisterPageState extends State<RegisterPage>  {
                                   if (response['status'] == 'success') {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                        content: Text('Successfully registered!'),
+                                        content:
+                                            Text('Successfully registered!'),
                                       ),
                                     );
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => const LoginPage()),
+                                          builder: (context) =>
+                                              const LoginPage()),
                                     );
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -242,7 +247,8 @@ class _RegisterPageState extends State<RegisterPage>  {
                                 }
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFFEFB11D), // Yellow
+                                backgroundColor:
+                                    const Color(0xFFEFB11D), // Yellow
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
@@ -261,7 +267,8 @@ class _RegisterPageState extends State<RegisterPage>  {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => LoginPage()),
+                              MaterialPageRoute(
+                                  builder: (context) => LoginPage()),
                             );
                           },
                           child: RichText(
@@ -270,7 +277,8 @@ class _RegisterPageState extends State<RegisterPage>  {
                               style: GoogleFonts.jockeyOne(
                                 textStyle: const TextStyle(
                                   fontSize: 16,
-                                  color: Color(0xFF7C1D05), // darkOrange for this part
+                                  color: Color(
+                                      0xFF7C1D05), // darkOrange for this part
                                 ),
                               ),
                               children: [
@@ -279,7 +287,8 @@ class _RegisterPageState extends State<RegisterPage>  {
                                   style: GoogleFonts.jockeyOne(
                                     textStyle: const TextStyle(
                                       fontSize: 16,
-                                      color: Color(0xFFE43D12), // orange for this part
+                                      color: Color(
+                                          0xFFE43D12), // orange for this part
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -289,7 +298,6 @@ class _RegisterPageState extends State<RegisterPage>  {
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),

@@ -20,7 +20,7 @@ class CardTempat extends StatelessWidget {
 
   Future<void> deleteTempatKuliner(CookieRequest request, String uuid) async {
     final response = await request.post(
-      'http://127.0.0.1:8000/adm/delete-resto-flutter/$uuid/',
+      'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/adm/delete-resto-flutter/$uuid/',
       {},
     );
 
@@ -42,7 +42,8 @@ class CardTempat extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => RestaurantPage(idTempatKuliner: idTempatKuliner),
+            builder: (context) =>
+                RestaurantPage(idTempatKuliner: idTempatKuliner),
           ),
         );
       },
@@ -65,7 +66,8 @@ class CardTempat extends StatelessWidget {
                   height: 90,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    border: Border.all(color: const Color(0xFFC88709), width: 2),
+                    border:
+                        Border.all(color: const Color(0xFFC88709), width: 2),
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(40),
@@ -108,7 +110,8 @@ class CardTempat extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => EditTempatKuliner(id: idTempatKuliner),
+                              builder: (context) =>
+                                  EditTempatKuliner(id: idTempatKuliner),
                             ),
                           );
                         },
@@ -127,10 +130,12 @@ class CardTempat extends StatelessWidget {
                             context: context,
                             builder: (context) => AlertDialog(
                               title: const Text("Konfirmasi"),
-                              content: const Text("Apakah Anda yakin ingin menghapus tempat ini?"),
+                              content: const Text(
+                                  "Apakah Anda yakin ingin menghapus tempat ini?"),
                               actions: [
                                 TextButton(
-                                  onPressed: () => Navigator.pop(context, false),
+                                  onPressed: () =>
+                                      Navigator.pop(context, false),
                                   child: const Text("Batal"),
                                 ),
                                 TextButton(
@@ -143,14 +148,18 @@ class CardTempat extends StatelessWidget {
 
                           if (shouldDelete == true) {
                             try {
-                              await deleteTempatKuliner(request, idTempatKuliner);
+                              await deleteTempatKuliner(
+                                  request, idTempatKuliner);
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("Berhasil dihapus")),
+                                const SnackBar(
+                                    content: Text("Berhasil dihapus")),
                               );
                               onDelete();
                             } catch (e) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text("Gagal menghapus tempat kuliner: $e")),
+                                SnackBar(
+                                    content: Text(
+                                        "Gagal menghapus tempat kuliner: $e")),
                               );
                             }
                           }

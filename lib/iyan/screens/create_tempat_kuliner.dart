@@ -27,10 +27,12 @@ class _CreateTempatKulinerState extends State<CreateTempatKuliner> {
   Future<void> _fetchVariasi() async {
     final request = context.read<CookieRequest>();
     try {
-      final response = await request.get('http://127.0.0.1:8000/adm/json-variasi/');
+      final response = await request.get(
+          'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/adm/json-variasi/');
       if (response != null) {
         setState(() {
-          _variasiOptions = List<Map<String, dynamic>>.from(response.map((item) {
+          _variasiOptions =
+              List<Map<String, dynamic>>.from(response.map((item) {
             return {
               'id': item['pk'],
               'nama': item['fields']['nama'],
@@ -68,7 +70,7 @@ class _CreateTempatKulinerState extends State<CreateTempatKuliner> {
       };
 
       final response = await request.postJson(
-        'http://127.0.0.1:8000/adm/create-tempat-kuliner/',
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/adm/create-resto-flutter/',
         jsonEncode(data),
       );
 
@@ -79,7 +81,9 @@ class _CreateTempatKulinerState extends State<CreateTempatKuliner> {
         Navigator.pop(context);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Error: ${response['message'] ?? 'Terjadi kesalahan'}")),
+          SnackBar(
+              content:
+                  Text("Error: ${response['message'] ?? 'Terjadi kesalahan'}")),
         );
       }
     } catch (e) {

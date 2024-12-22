@@ -17,11 +17,13 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _alamatController = TextEditingController();
   final TextEditingController _fotoLinkController = TextEditingController();
-  final TextEditingController _longitudeTextController = TextEditingController();
+  final TextEditingController _longitudeTextController =
+      TextEditingController();
   final TextEditingController _latitudeTextController = TextEditingController();
 
   double _longitudeController = 0.0;
   double _latitudeController = 0.0;
+  double _rating = 0.0; // Nilai awal untuk rating
   TimeOfDay _jamBukaController = TimeOfDay(hour: 9, minute: 0);
   TimeOfDay _jamTutupController = TimeOfDay(hour: 21, minute: 0);
   List<int> _variasiController = [];
@@ -31,7 +33,7 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
     final request = context.read<CookieRequest>();
     try {
       final response = await request.get(
-        'http://127.0.0.1:8000/adm/get-resto-detail/${widget.id}/',
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/adm/get-resto-detail/${widget.id}/',
       );
 
       if (response['status'] == 'success') {
@@ -39,11 +41,15 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
           _namaController.text = response['data']['nama'];
           _descriptionController.text = response['data']['description'];
           _alamatController.text = response['data']['alamat'];
-          _longitudeTextController.text = response['data']['longitude'].toString();
-          _latitudeTextController.text = response['data']['latitude'].toString();
+          _longitudeTextController.text =
+              response['data']['longitude'].toString();
+          _latitudeTextController.text =
+              response['data']['latitude'].toString();
           _longitudeController = double.parse(response['data']['longitude']);
           _latitudeController = double.parse(response['data']['latitude']);
           _fotoLinkController.text = response['data']['foto_link'];
+          _rating = double.parse(
+              response['data']['rating'].toString()); // Set nilai awal rating
           _jamBukaController = TimeOfDay(
             hour: int.parse(response['data']['jamBuka'].split(':')[0]),
             minute: int.parse(response['data']['jamBuka'].split(':')[1]),
@@ -67,10 +73,12 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
   Future<void> _fetchVariasi() async {
     final request = context.read<CookieRequest>();
     try {
-      final response = await request.get('http://127.0.0.1:8000/adm/json-variasi/');
+      final response = await request.get(
+          'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/adm/json-variasi/');
       if (response != null) {
         setState(() {
-          _variasiOptions = List<Map<String, dynamic>>.from(response.map((item) {
+          _variasiOptions =
+              List<Map<String, dynamic>>.from(response.map((item) {
             return {'id': item['pk'], 'nama': item['fields']['nama']};
           }));
         });
@@ -78,6 +86,52 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Error mengambil variasi: $e")),
+      );
+    }
+  }
+
+  Future<void> _updateTempatKuliner() async {
+    final request = context.read<CookieRequest>();
+    try {
+      final data = {
+        "nama": _namaController.text,
+        "description": _descriptionController.text,
+        "alamat": _alamatController.text,
+        "longitude": _longitudeController,
+        "latitude": _latitudeController,
+        "jamBuka": _jamBukaController.format(context),
+        "jamTutup": _jamTutupController.format(context),
+        "foto_link": _fotoLinkController.text,
+        "rating": _rating, // Gunakan nilai rating awal
+        "variasi": _variasiController,
+      };
+
+      final response = await request.postJson(
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/adm/edit-resto-flutter/${widget.id}/',
+        jsonEncode(data),
+      );
+
+      // final response = await request.postJson(
+      //   'http://127.0.0.1:8000/adm/edit-resto-flutter/${widget.id}/',
+      //   jsonEncode(data),
+      // );
+
+      if (response['status'] == 'success') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Tempat kuliner berhasil diperbarui!")),
+        );
+        Navigator.pop(context);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content:
+                  // Text("Error: ${response['message'] ?? 'Terjadi kesalahan'}")),
+                  Text("Error: $response")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error saat memperbarui tempat kuliner: $e")),
       );
     }
   }
@@ -173,13 +227,13 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
                   labelText: "Jam Tutup",
                   time: _jamTutupController,
                   onTap: () => _selectTime(context, false),
-                ),
+                ), // Menampilkan rating
                 _buildVariasiCheckbox(),
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // Update logic
+                        _updateTempatKuliner();
                       }
                     },
                     child: const Text("Update"),

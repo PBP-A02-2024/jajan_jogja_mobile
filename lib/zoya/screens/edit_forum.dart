@@ -38,8 +38,8 @@ class _EditForumState extends State<EditForum> {
   Future<void> _fetchOriginalComment() async {
     final request = context.read<CookieRequest>();
     try {
-      final response = await request
-          .get("http://127.0.0.1:8000/json-forum/${widget.forumId}/");
+      final response = await request.get(
+          "https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/json-forum/${widget.forumId}/");
 
       if (response != null && response['comment'] != null) {
         setState(() {
@@ -112,7 +112,7 @@ class _EditForumState extends State<EditForum> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       final response = await request.postJson(
-                        "http://127.0.0.1:8000/edit-flutter/${widget.forumId}/",
+                        "https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/edit-flutter/${widget.forumId}/",
                         jsonEncode(<String, String>{
                           'comment': _commentController.text,
                         }),
@@ -123,11 +123,12 @@ class _EditForumState extends State<EditForum> {
                               .showSnackBar(const SnackBar(
                             content: Text("Forum berhasil diubah!"),
                           ));
-                          Navigator.of(context).popUntil((route) => route.isFirst);
+                          Navigator.of(context)
+                              .popUntil((route) => route.isFirst);
                           Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => LandingPage())
-                          );
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LandingPage()));
                         } else {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(

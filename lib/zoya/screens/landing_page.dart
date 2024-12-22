@@ -33,7 +33,7 @@ class LandingPageState extends State<LandingPage> {
   var _isAdmin = false;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _fetchData();
   }
@@ -47,7 +47,8 @@ class LandingPageState extends State<LandingPage> {
   }
 
   Future<List<TempatKuliner>> fetchTempatKuliner(CookieRequest request) async {
-    final response = await request.get('http://127.0.0.1:8000/json-tempat/');
+    final response = await request
+        .get('https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/json-tempat/');
 
     var data = response;
 
@@ -62,7 +63,8 @@ class LandingPageState extends State<LandingPage> {
 
   Future<List<TempatKuliner>> fetchTop5TempatKuliner(
       CookieRequest request) async {
-    final response = await request.get('http://127.0.0.1:8000/json-tempat/');
+    final response = await request
+        .get('https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/json-tempat/');
 
     var data = response;
 
@@ -80,8 +82,8 @@ class LandingPageState extends State<LandingPage> {
   }
 
   Future<String> fetchUsername(int userId, CookieRequest request) async {
-    final response =
-        await request.get('http://127.0.0.1:8000/json-user/$userId/');
+    final response = await request.get(
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/json-user/$userId/');
 
     if (response != null) {
       var data = response;
@@ -95,8 +97,8 @@ class LandingPageState extends State<LandingPage> {
   }
 
   Future<bool> fetchUserIsAdmin(CookieRequest request) async {
-    final response =
-        await request.get('http://127.0.0.1:8000/json-current-user/');
+    final response = await request.get(
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/json-current-user/');
 
     if (response != null) {
       var data = response;
@@ -110,9 +112,9 @@ class LandingPageState extends State<LandingPage> {
   }
 
   Future<Map<String, dynamic>> fetchCurrentUser(CookieRequest request) async {
-    final response =
-        await request.get('http://127.0.0.1:8000/json-current-user/');
-    
+    final response = await request.get(
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/json-current-user/');
+
     if (response != null) {
       return response;
     } else {
@@ -122,7 +124,8 @@ class LandingPageState extends State<LandingPage> {
 
   Future<List<CommunityForumEntry>> fetchCommunityForum(
       CookieRequest request) async {
-    final response = await request.get('http://127.0.0.1:8000/json-forum/');
+    final response = await request
+        .get('https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/json-forum/');
 
     var data = response;
 
@@ -138,7 +141,7 @@ class LandingPageState extends State<LandingPage> {
   Future<void> postForumEntry(CookieRequest request) async {
     if (_formKey.currentState!.validate()) {
       final response = await request.postJson(
-        'http://127.0.0.1:8000/create-flutter/',
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/create-flutter/',
         jsonEncode({'comment': _commentController.text}),
       );
 
@@ -233,11 +236,12 @@ class LandingPageState extends State<LandingPage> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: CardTempat(
-                            entry,
-                            isAdmin: _isAdmin,
-                            request: request, 
-                            onDelete: () => setState(() {}), // Callback untuk refresh data
-                          ),
+                              entry,
+                              isAdmin: _isAdmin,
+                              request: request,
+                              onDelete: () => setState(
+                                  () {}), // Callback untuk refresh data
+                            ),
                           );
                         }).toList(),
                       ),
@@ -256,56 +260,55 @@ class LandingPageState extends State<LandingPage> {
               ),
               const SizedBox(height: 12),
               Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: TextFormField(
-                        controller: _commentController,
-                        decoration: InputDecoration(
-                          hintText: "Write a comment...",
-                          filled: true,
-                          fillColor: Colors.white,
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(
-                                color: Color(0xFF7C1D05), width: 2),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(
-                                color: Color(0xFFC98809), width: 2),
-                          ),
-                        ),
-                        maxLines: 3,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a comment';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () => postForumEntry(request),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFC98809),
-                          ),
-                          child: const Text(
-                            'Post',
-                            style: TextStyle(
-                              color: Color(0xFFEBE9E1),
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: TextFormField(
+                          controller: _commentController,
+                          decoration: InputDecoration(
+                            hintText: "Write a comment...",
+                            filled: true,
+                            fillColor: Colors.white,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(
+                                  color: Color(0xFF7C1D05), width: 2),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(
+                                  color: Color(0xFFC98809), width: 2),
                             ),
                           ),
+                          maxLines: 3,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a comment';
+                            }
+                            return null;
+                          },
                         ),
-                      ],
-                    ),
-                  ],
-                )
-              ),
+                      ),
+                      Row(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () => postForumEntry(request),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFFC98809),
+                            ),
+                            child: const Text(
+                              'Post',
+                              style: TextStyle(
+                                color: Color(0xFFEBE9E1),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )),
               const SizedBox(height: 24),
               FutureBuilder<List<CommunityForumEntry>>(
                 future: fetchCommunityForum(request),
@@ -379,76 +382,78 @@ class LandingPageState extends State<LandingPage> {
                                   const SizedBox(height: 4),
                                   FutureBuilder<Map<String, dynamic>>(
                                     future: fetchCurrentUser(request),
-                                    builder:
-                                        (context, currentUserSnapshot) {
-                                      if (currentUserSnapshot
-                                              .connectionState ==
+                                    builder: (context, currentUserSnapshot) {
+                                      if (currentUserSnapshot.connectionState ==
                                           ConnectionState.waiting) {
                                         return const SizedBox.shrink();
-                                      } else if (currentUserSnapshot
-                                          .hasError) {
+                                      } else if (currentUserSnapshot.hasError) {
                                         return const SizedBox.shrink();
                                       } else {
                                         final currentUser =
                                             currentUserSnapshot.data?['id'];
-                                        if (currentUser ==
-                                            entry.fields.user) {
+                                        if (currentUser == entry.fields.user) {
                                           return Row(
-                                            children: [
-                                              TextButton(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                ElevatedButton(
                                                   onPressed: () {
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
-                                                          builder: (context) => EditForum(entry.pk)),
+                                                          builder: (context) =>
+                                                              EditForum(
+                                                                  entry.pk)),
                                                     );
                                                   },
-                                                  style: TextButton.styleFrom(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
                                                     backgroundColor:
                                                         const Color(0xFFC98809),
                                                   ),
                                                   child: const Text('Edit',
                                                       style: TextStyle(
                                                           color: Colors.white)),
-                                              ),
-                                              const SizedBox(width: 12),
-                                              TextButton(
-                                                onPressed: () async {
-                                                  final response =
-                                                      await request.get(
-                                                          "http://127.0.0.1:8000/delete-flutter/${entry.pk}/");
-
-                                                  if (context.mounted) {
-                                                    if (response['status'] ==
-                                                        'success') {
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                              const SnackBar(
-                                                        content: Text(
-                                                            "Forum berhasil dihapus!"),
-                                                      ));
-                                                      setState(() {});
-                                                    } else {
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                              const SnackBar(
-                                                        content: Text(
-                                                            "Terdapat kesalahan, silakan coba lagi."),
-                                                      ));
-                                                    }
-                                                  }
-                                                },
-                                                style: TextButton.styleFrom(
-                                                  backgroundColor:
-                                                      const Color(0xFFE43D12),
                                                 ),
-                                                child: const Text('Delete',
-                                                    style: TextStyle(
-                                                        color: Colors.white)),
-                                              )
-                                            ]);
+                                                const SizedBox(width: 12),
+                                                ElevatedButton(
+                                                  onPressed: () async {
+                                                    final response =
+                                                        await request.get(
+                                                            "https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/delete-flutter/${entry.pk}/");
+
+                                                    if (context.mounted) {
+                                                      if (response['status'] ==
+                                                          'success') {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                                const SnackBar(
+                                                          content: Text(
+                                                              "Forum berhasil dihapus!"),
+                                                        ));
+                                                        setState(() {});
+                                                      } else {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                                const SnackBar(
+                                                          content: Text(
+                                                              "Terdapat kesalahan, silakan coba lagi."),
+                                                        ));
+                                                      }
+                                                    }
+                                                  },
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        const Color(0xFFE43D12),
+                                                  ),
+                                                  child: const Text('Delete',
+                                                      style: TextStyle(
+                                                          color: Colors.white)),
+                                                )
+                                              ]);
                                         }
                                         return const SizedBox.shrink();
                                       }
@@ -474,7 +479,8 @@ class LandingPageState extends State<LandingPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: _isAdmin
           ? Padding(
-              padding: const EdgeInsets.only(bottom: 70), // Menyesuaikan jarak dari navbar
+              padding: const EdgeInsets.only(
+                  bottom: 70), // Menyesuaikan jarak dari navbar
               child: FloatingActionButton(
                 onPressed: () {
                   // Navigasi ke halaman CreateTempatKuliner
@@ -506,7 +512,7 @@ class LandingPageState extends State<LandingPage> {
                 ),
               ),
             )
-            : const SizedBox(), // Tidak menampilkan tombol jika bukan admin
-      );
-    }
+          : const SizedBox(), // Tidak menampilkan tombol jika bukan admin
+    );
   }
+}

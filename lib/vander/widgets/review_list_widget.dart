@@ -19,7 +19,7 @@ class _ReviewsListWidgetState extends State<ReviewsListWidget> {
   late Future<List<Review>> _futureReviews;
   late Future<Map<String, dynamic>?> _futureCurrentUser;
 
-  final String baseUrl = "http://127.0.0.1:8000";
+  final String baseUrl = "https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id";
 
   @override
   void initState() {

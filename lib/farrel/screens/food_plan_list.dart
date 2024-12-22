@@ -25,8 +25,8 @@ class _FoodPlanListState extends State<FoodPlanList> {
   }
 
   Future<List<FoodPlan>> fetchFoodPlans(CookieRequest request) async {
-    final response =
-        await request.get('http://127.0.0.1:8000/food_plans/food_plan_json/');
+    final response = await request.get(
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/food_plans/food_plan_json/');
 
     if (response != null) {
       List<FoodPlan> foodPlans = [];
@@ -43,7 +43,7 @@ class _FoodPlanListState extends State<FoodPlanList> {
 
   Future<String> createFoodPlan(CookieRequest request) async {
     final response = await request.post(
-      'http://127.0.0.1:8000/food_plans/food_plan_create_json/',
+      'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/food_plans/food_plan_create_json/',
       {},
     );
 

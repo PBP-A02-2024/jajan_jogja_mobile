@@ -32,7 +32,8 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<void> fetchSearch(CookieRequest request) async {
     try {
-      final response = await request.get('http://127.0.0.1:8000/search/show-search-history/');
+      final response = await request.get(
+          'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/search/show-search-history/');
       List<Search> listSearch = [];
       for (var d in response) {
         if (d != null) {
@@ -51,7 +52,8 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<void> fetchVariasi(CookieRequest request) async {
     try {
-      final response = await request.get('http://127.0.0.1:8000/search/show-variasi/');
+      final response = await request.get(
+          'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/search/show-variasi/');
       List<Variasi> listVariasi = [];
       for (var d in response) {
         if (d != null) {
@@ -68,16 +70,20 @@ class _SearchPageState extends State<SearchPage> {
     }
   }
 
-  Future<void> fetchResto(CookieRequest request, String nama, String kategori) async {
+  Future<void> fetchResto(
+      CookieRequest request, String nama, String kategori) async {
     try {
       var response;
       if (nama.isEmpty) {
-        response = await request.get('http://127.0.0.1:8000/json-tempat/');
+        response = await request.get(
+            'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/json-tempat/');
       } else {
         if (kategori.isEmpty) {
-          response = await request.get('http://127.0.0.1:8000/search/show-tempat-kuliner-by-keyword/$nama');
+          response = await request.get(
+              'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/search/show-tempat-kuliner-by-keyword/$nama');
         } else {
-          response = await request.get('http://127.0.0.1:8000/search/show-tempat-kuliner-by-category/$nama-$kategori');
+          response = await request.get(
+              'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/search/show-tempat-kuliner-by-category/$nama-$kategori');
         }
       }
       List<TempatKuliner> listResto = [];
@@ -100,7 +106,9 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<void> deleteSearch(CookieRequest request, String id) async {
     try {
-      await request.post('http://127.0.0.1:8000/search/delete/$id', {});
+      await request.post(
+          'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/search/delete/$id',
+          {});
     } catch (e) {
       setState(() {
         _errorMessage = e.toString();
@@ -109,9 +117,12 @@ class _SearchPageState extends State<SearchPage> {
     fetchSearch(request);
   }
 
-  Future<void> editSearch(CookieRequest request, String id, String content) async {
+  Future<void> editSearch(
+      CookieRequest request, String id, String content) async {
     try {
-      await request.post('http://127.0.0.1:8000/search/edit/$id', jsonEncode({'content': content}));
+      await request.post(
+          'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/search/edit/$id',
+          jsonEncode({'content': content}));
     } catch (e) {
       setState(() {
         _errorMessage = e.toString();
@@ -121,13 +132,15 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _showEditDialog(Search search) {
-    final TextEditingController contentController = TextEditingController(text: search.fields.content);
+    final TextEditingController contentController =
+        TextEditingController(text: search.fields.content);
     showDialog(
       barrierColor: Colors.transparent,
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           backgroundColor: Colors.transparent,
           content: Container(
             height: 250,
@@ -136,7 +149,8 @@ class _SearchPageState extends State<SearchPage> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Theme.of(context).colorScheme.secondary, width: 2),
+              border: Border.all(
+                  color: Theme.of(context).colorScheme.secondary, width: 2),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,27 +166,35 @@ class _SearchPageState extends State<SearchPage> {
                     labelText: "Content",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
+                      borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.secondary),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 2),
+                      borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.secondary,
+                          width: 2),
                     ),
                   ),
                 ),
                 SizedBox(height: 16),
                 TextField(
-                  controller: TextEditingController(text: DateFormat('dd/MM/yyyy, HH:mm:ss').format(search.fields.createdAt)),
+                  controller: TextEditingController(
+                      text: DateFormat('dd/MM/yyyy, HH:mm:ss')
+                          .format(search.fields.createdAt)),
                   readOnly: true,
                   decoration: InputDecoration(
                     labelText: "Created At",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
+                      borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.secondary),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 2),
+                      borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.secondary,
+                          width: 2),
                     ),
                     filled: true,
                     fillColor: Color(0xb8b6afb2),
@@ -192,12 +214,14 @@ class _SearchPageState extends State<SearchPage> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: Text("Back", style: TextStyle(color: Colors.white)),
+                      child:
+                          Text("Back", style: TextStyle(color: Colors.white)),
                     ),
                     SizedBox(width: 8),
                     ElevatedButton(
                       onPressed: () {
-                        editSearch(context.read<CookieRequest>(), search.pk, contentController.text);
+                        editSearch(context.read<CookieRequest>(), search.pk,
+                            contentController.text);
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(
@@ -206,7 +230,8 @@ class _SearchPageState extends State<SearchPage> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: Text("Save", style: TextStyle(color: Colors.white)),
+                      child:
+                          Text("Save", style: TextStyle(color: Colors.white)),
                     ),
                   ],
                 ),
@@ -250,7 +275,7 @@ class _SearchPageState extends State<SearchPage> {
             left: -80,
             child: Container(
               height: 160,
-              width:160,
+              width: 160,
               decoration: BoxDecoration(
                 // color: Color(0xFFe43d12),
                 borderRadius: BorderRadius.circular(100),
@@ -373,7 +398,7 @@ class _SearchPageState extends State<SearchPage> {
                       onPressed: () async {
                         _searchNama = _searchController.text;
                         await request.postJson(
-                          "http://127.0.0.1:8000/search/create-search/",
+                          "https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/search/create-search/",
                           jsonEncode(<String, String>{
                             'content': _searchNama,
                           }),
@@ -382,13 +407,17 @@ class _SearchPageState extends State<SearchPage> {
                         fetchSearch(request);
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.secondary,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
                         shape: CircleBorder(),
                         fixedSize: Size(40, 40),
                         padding: EdgeInsets.all(0),
                       ),
                       child: Center(
-                        child: HugeIcon(size: 24, icon: HugeIcons.strokeRoundedSearch01, color: Colors.white),
+                        child: HugeIcon(
+                            size: 24,
+                            icon: HugeIcons.strokeRoundedSearch01,
+                            color: Colors.white),
                       ),
                     ),
                   ],
@@ -404,7 +433,9 @@ class _SearchPageState extends State<SearchPage> {
                         children: [
                           Text(
                             "Search result for $_searchNama",
-                            style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontSize: 18),
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.secondary,
+                                fontSize: 18),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(width: 12),
@@ -415,27 +446,39 @@ class _SearchPageState extends State<SearchPage> {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Theme.of(context).colorScheme.secondary, width: 2),
+                              border: Border.all(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  width: 2),
                             ),
                             child: DropdownButton<String>(
                               padding: EdgeInsets.symmetric(horizontal: 8),
                               menuMaxHeight: 300,
                               isExpanded: true,
-                              value: _kategoriPilih.isEmpty ? null : _kategoriPilih,
+                              value: _kategoriPilih.isEmpty
+                                  ? null
+                                  : _kategoriPilih,
                               hint: Text('Select Category'),
                               items: _kategoriList.map((e) {
                                 return DropdownMenuItem<String>(
                                   value: e.pk.toString(),
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 4),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(color: Theme.of(context).colorScheme.secondary),
+                                      border: Border.all(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary),
                                     ),
                                     child: Text(
                                       e.fields.nama,
-                                      style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                                      style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary),
                                     ),
                                   ),
                                 );
@@ -444,7 +487,8 @@ class _SearchPageState extends State<SearchPage> {
                                 setState(() {
                                   _kategoriPilih = kategori!;
                                 });
-                                fetchResto(request, _searchNama, _kategoriPilih);
+                                fetchResto(
+                                    request, _searchNama, _kategoriPilih);
                               },
                               dropdownColor: Colors.white.withOpacity(0.9),
                               icon: HugeIcon(
@@ -470,11 +514,16 @@ class _SearchPageState extends State<SearchPage> {
                                   child: Text(
                                     'No food places found matching your criteria.',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontSize: 20),
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                        fontSize: 20),
                                   ),
                                 )
                               : GridView.builder(
-                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
                                     mainAxisExtent: 175,
                                     crossAxisSpacing: 8.0,
@@ -483,7 +532,8 @@ class _SearchPageState extends State<SearchPage> {
                                   itemCount: _restoList.length,
                                   itemBuilder: (context, index) {
                                     final resto = _restoList[index];
-                                    return TempatKulinerCard(tempatKuliner: resto);
+                                    return TempatKulinerCard(
+                                        tempatKuliner: resto);
                                   },
                                 ),
                 ),
