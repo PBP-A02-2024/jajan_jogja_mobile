@@ -35,7 +35,7 @@ class _FoodPlansState extends State<FoodPlans> {
   Future<Map<String, dynamic>> fetchAllData(CookieRequest request) async {
     try {
       final response = await request.get(
-        'http://127.0.0.1:8000/food_plans/food_plan_detail_json/${widget.planId}/',
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/food_plans/food_plan_detail_json/${widget.planId}/',
       );
 
       if (response is List && response.isNotEmpty) {
@@ -51,7 +51,7 @@ class _FoodPlansState extends State<FoodPlans> {
         for (String restaurantId in restaurantIds) {
           // Fetch restaurant details
           final restaurantResponse = await request.get(
-            'http://127.0.0.1:8000/restaurant/get_restoran_json/$restaurantId/',
+            'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/restaurant/get_restoran_json/$restaurantId/',
           );
           if (restaurantResponse is List && restaurantResponse.isNotEmpty) {
             restaurants.add(TempatKuliner.fromJson(restaurantResponse[0]));
@@ -59,7 +59,7 @@ class _FoodPlansState extends State<FoodPlans> {
 
           // Fetch foods for this restaurant
           final foodResponse = await request.get(
-            'http://127.0.0.1:8000/restaurant/get_makanan_json/$restaurantId/',
+            'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/restaurant/get_makanan_json/$restaurantId/',
           );
           if (foodResponse != null) {
             List<Makanan> foods = [];
@@ -93,7 +93,7 @@ class _FoodPlansState extends State<FoodPlans> {
 
   Future<bool> updateTitle(CookieRequest request, String newTitle) async {
     final response = await request.post(
-      'http://127.0.0.1:8000/food_plans/update_title/${widget.planId}/',
+      'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/food_plans/update_title/${widget.planId}/',
       jsonEncode({'new_title': newTitle}),
     );
     return response != null && response['success'] == "True";
@@ -101,7 +101,7 @@ class _FoodPlansState extends State<FoodPlans> {
 
   Future<bool> deleteFoodItem(CookieRequest request, String foodPk) async {
     final response = await request.post(
-      'http://127.0.0.1:8000/food_plans/remove_item/${widget.planId}/',
+      'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/food_plans/remove_item/${widget.planId}/',
       jsonEncode({'food_item_id': foodPk}),
     );
     return response != null && response['success'] == "True";
@@ -109,7 +109,7 @@ class _FoodPlansState extends State<FoodPlans> {
 
   Future<bool> deleteFoodPlan(CookieRequest request) async {
     final response = await request.post(
-      'http://127.0.0.1:8000/food_plans/remove/${widget.planId}/',
+      'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/food_plans/remove/${widget.planId}/',
       {},
     );
     return response != null && response['success'] == "True";
@@ -118,7 +118,7 @@ class _FoodPlansState extends State<FoodPlans> {
   Future<bool> deleteRestaurant(
       CookieRequest request, String restaurantPk) async {
     final response = await request.post(
-      'http://127.0.0.1:8000/food_plans/remove_restaurant/${widget.planId}/',
+      'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/food_plans/remove_restaurant/${widget.planId}/',
       jsonEncode({'restaurant_id': restaurantPk}),
     );
     return response != null && response['success'] == "True";

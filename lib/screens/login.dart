@@ -182,10 +182,11 @@ class _LoginPageState extends State<LoginPage> {
 
                                 // Cek kredensial
                                 final response = await request.login(
-                                    "http://127.0.0.1:8000/auth_api/login/", {
-                                  'username': username,
-                                  'password': password,
-                                });
+                                    "https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/auth_api/login/",
+                                    {
+                                      'username': username,
+                                      'password': password,
+                                    });
 
                                 if (request.loggedIn) {
                                   String message = response['message'];

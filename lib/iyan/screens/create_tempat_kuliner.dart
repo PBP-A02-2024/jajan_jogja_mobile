@@ -27,8 +27,8 @@ class _CreateTempatKulinerState extends State<CreateTempatKuliner> {
   Future<void> _fetchVariasi() async {
     final request = context.read<CookieRequest>();
     try {
-      final response =
-          await request.get('http://127.0.0.1:8000/adm/json-variasi/');
+      final response = await request.get(
+          'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/adm/json-variasi/');
       if (response != null) {
         setState(() {
           _variasiOptions =
@@ -70,7 +70,7 @@ class _CreateTempatKulinerState extends State<CreateTempatKuliner> {
       };
 
       final response = await request.postJson(
-        'http://127.0.0.1:8000/adm/create-resto-flutter/',
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/adm/create-resto-flutter/',
         jsonEncode(data),
       );
 

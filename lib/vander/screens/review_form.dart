@@ -22,7 +22,7 @@ class _ReviewEntryFormPageState extends State<ReviewEntryFormPage> {
   int _rating = 1;
 
   // Update this to your actual backend URL
-  final String baseUrl = "http://127.0.0.1:8000";
+  final String baseUrl = "https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id";
 
   // Variable to hold the Future for submission
   Future<void>? _submitFuture;
