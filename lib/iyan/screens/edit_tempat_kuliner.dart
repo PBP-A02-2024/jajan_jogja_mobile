@@ -99,17 +99,22 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
         "alamat": _alamatController.text,
         "longitude": _longitudeController,
         "latitude": _latitudeController,
-        "jam_buka": _jamBukaController.format(context),
-        "jam_tutup": _jamTutupController.format(context),
+        "jamBuka": _jamBukaController.format(context),
+        "jamTutup": _jamTutupController.format(context),
         "foto_link": _fotoLinkController.text,
         "rating": _rating, // Gunakan nilai rating awal
         "variasi": _variasiController,
       };
 
       final response = await request.postJson(
-        'http://127.0.0.1:8000/adm/edit-resto-flutter/${widget.id}/',
+        'https://farrel-reksa-jajanjogja.pbp.cs.ui.ac.id/adm/edit-resto-flutter/${widget.id}/',
         jsonEncode(data),
       );
+
+      // final response = await request.postJson(
+      //   'http://127.0.0.1:8000/adm/edit-resto-flutter/${widget.id}/',
+      //   jsonEncode(data),
+      // );
 
       if (response['status'] == 'success') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -120,7 +125,8 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               content:
-                  Text("Error: ${response['message'] ?? 'Terjadi kesalahan'}")),
+                  // Text("Error: ${response['message'] ?? 'Terjadi kesalahan'}")),
+                  Text("Error: $response")),
         );
       }
     } catch (e) {
@@ -221,8 +227,7 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
                   labelText: "Jam Tutup",
                   time: _jamTutupController,
                   onTap: () => _selectTime(context, false),
-                ),
-                _buildRatingDisplay(), // Menampilkan rating
+                ), // Menampilkan rating
                 _buildVariasiCheckbox(),
                 Center(
                   child: ElevatedButton(
@@ -282,21 +287,6 @@ class _EditTempatKulinerState extends State<EditTempatKuliner> {
             controller: TextEditingController(text: time.format(context)),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildRatingDisplay() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: [
-          const Text("Rating: "),
-          Text(
-            _rating.toStringAsFixed(1),
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ],
       ),
     );
   }

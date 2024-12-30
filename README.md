@@ -17,6 +17,9 @@ Daftar modul yang diimplementasikan beserta pembagian kerja per anggota
 Peran atau aktor pengguna aplikasi
 Alur pengintegrasian dengan web service untuk terhubung dengan aplikasi web yang sudah dibuat saat Proyek Tengah Semester
 
+## 📹 Link Video Tugas Proyek Akhir 
+Link Youtube: https://youtu.be/zvYRXeCiawY
+
 ## 💻 Modul - Modul 💻
 
 1. **Landing Page 🛬**
@@ -77,4 +80,6 @@ User dapat menambahkan *review* berupa *rating* 1-5 bintang dan *text* untuk tia
 2. Proses *fetch* dapat dilakukan dengan menggunakan `Uri.parse` didalam file dart lalu mengambilnya dengan menggunakan *get* dengan tipe `application/json`.
 3. Selanjutnya, data yang telah diambil tadi dapat di-*decode* menggunakan `jsonDecode()` yang nantinya akan di-*convert* melalui model yang telah dibuat dan ditampilkan secara *async* menggunakan widget `FutureBuilder`.
 4. Data-data JSON tadi dapat digunakan secara CRUD pada kedua media secara *async* 
+
+<a href="https://install.appcenter.ms/orgs/PBP-A02-2024/apps/Jajan-Jogja">Link Microsoft App Center</a>&emsp;&emsp;[![Build status](https://build.appcenter.ms/v0.1/apps/53e72241-e10a-4845-98e7-419abef94e9f/branches/main/badge)](https://appcenter.ms)
 

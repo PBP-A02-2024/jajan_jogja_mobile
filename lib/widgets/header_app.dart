@@ -6,10 +6,13 @@ AppBar headerApp(context){
     title: Container(
       height: 65,
       padding: EdgeInsets.all(12),
-      child: Image.asset(
-      'assets/images/logo.png',
-      height: 18,
-      fit: BoxFit.fitHeight,
+      child: Padding(
+        padding: EdgeInsets.all(6.0), // Add padding to the image
+        child: Image.asset(
+          'assets/images/logo.png',
+          height: 18,
+          fit: BoxFit.fitHeight,
+        ),
       ),
     ),
     centerTitle: true,
